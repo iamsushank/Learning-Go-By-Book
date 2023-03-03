@@ -1,1 +1,1 @@
-# Starting Go Lang usign book
+# Starting Go Lang using book
