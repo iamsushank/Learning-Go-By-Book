@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/go-chi/chi/v5"
 	"net/http"
 )
 
@@ -38,27 +39,35 @@ func faq(w http.ResponseWriter, r *http.Request) {
 		`)
 }
 
-func pathHandler(w http.ResponseWriter, r *http.Request) {
-	switch r.URL.Path {
-	case "/":
-		homeHandler(w, r)
-	case "/contact":
-		contactHandler(w, r)
-	case "/faq":
-		faq(w, r)
-	default:
-		http.Error(w, "Page not found", http.StatusNotFound)
+/*
+	func pathHandler(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case "/":
+			homeHandler(w, r)
+		case "/contact":
+			contactHandler(w, r)
+		case "/faq":
+			faq(w, r)
+		default:
+			http.Error(w, "Page not found", http.StatusNotFound)
+		}
 	}
-}
 
-func (router Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	pathHandler(w, r)
-}
-
+	func (router Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+		pathHandler(w, r)
+	}
+*/
 func main() {
-	var router Router
-	fmt.Println("Starting the server on :3003...")
-	http.ListenAndServe(":3003", router)
+	/*
+		var router Router
+		fmt.Println("Starting the server on :3003...")
+		http.ListenAndServe(":3003", router)
+	*/
+	r := chi.NewRouter()
+	r.Get("/", homeHandler)
+	r.Get("/contact", contactHandler)
+	r.Get("/faq", faq)
+	http.ListenAndServe(":3004", r)
 }
 
 /*
