@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"log"
 )
 
 func Connect() error {
@@ -24,4 +25,14 @@ func CreateOrg() error {
 		return fmt.Errorf("create org: %w", err)
 	}
 	return nil
+}
+func main() {
+	err := CreateUser()
+	if err != nil {
+		log.Println(err)
+	}
+	err = CreateOrg()
+	if err != nil {
+		log.Println(err)
+	}
 }
